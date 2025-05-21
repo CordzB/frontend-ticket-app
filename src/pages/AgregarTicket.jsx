@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AgregarTicket = () => {
   const [titulo, setTitulo] = useState('');
   const [descripcion, setDescripcion] = useState('');
-  const [mensaje, setMensaje] = useState('');
 
   const enviarFormulario = async (e) => {
     e.preventDefault();
 
     if (!titulo || !descripcion) {
-      setMensaje('Todos los campos son obligatorios.');
+      Swal.fire('Todos los campos son obligatorios.', '', 'warning');
       return;
     }
 
@@ -19,40 +20,42 @@ const AgregarTicket = () => {
         titulo,
         descripcion,
       });
-      setMensaje('✅ Ticket guardado correctamente.');
+
+      Swal.fire('Ticket guardado', 'El ticket fue registrado correctamente.', 'success');
       setTitulo('');
       setDescripcion('');
     } catch (error) {
       console.error(error);
-      setMensaje('❌ Error al guardar el ticket.');
+      Swal.fire('Error', 'No se pudo guardar el ticket.', 'error');
     }
   };
 
   return (
-    <div style={{ maxWidth: '500px', margin: '2rem auto', padding: '1rem', border: '1px solid #ccc' }}>
-      <h2>Agregar Nuevo Ticket</h2>
+    <div className="container mt-4">
+      <h2>
+        Agregar un Ticket <span style={{ fontSize: '1.5rem', color: '#007bff' }}>♾️</span>
+      </h2>
       <form onSubmit={enviarFormulario}>
-        <div>
-          <label>Título:</label><br />
+        <div className="mb-3">
+          <label className="form-label">Título:</label>
           <input
             type="text"
+            className="form-control"
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
-            style={{ width: '100%', padding: '0.5rem' }}
           />
-        </div><br />
-        <div>
-          <label>Descripción:</label><br />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Descripción:</label>
           <textarea
+            className="form-control"
+            rows="4"
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
-            rows="4"
-            style={{ width: '100%', padding: '0.5rem' }}
-          />
-        </div><br />
-        <button type="submit">Guardar Ticket</button>
+          ></textarea>
+        </div>
+        <button type="submit" className="btn btn-primary">Guardar Ticket</button>
       </form>
-      {mensaje && <p style={{ marginTop: '1rem', color: mensaje.startsWith('✅') ? 'green' : 'red' }}>{mensaje}</p>}
     </div>
   );
 };

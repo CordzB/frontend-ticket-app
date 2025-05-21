@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const VerTickets = () => {
   const [tickets, setTickets] = useState([]);
@@ -32,42 +33,43 @@ const VerTickets = () => {
   }, []);
 
   return (
-    <div style={{ padding: '2rem' }}>
+    <div className="container mt-4">
       <h2>Lista de Tickets</h2>
-      <button onClick={obtenerTickets} style={{ marginBottom: '1rem' }}>
-        🔄 Recargar
-      </button>
-      {cargando && <p>Cargando tickets...</p>}
-      <table border="1" cellPadding="10" style={{ width: '100%', marginTop: '1rem' }}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Título</th>
-            <th>Descripción</th>
-            <th>Estado</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody>
+      <button className="btn btn-outline-secondary mb-3" onClick={obtenerTickets}>🔄 Recargar</button>
+
+      {cargando ? (
+        <div className="text-center my-4">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Cargando...</span>
+          </div>
+        </div>
+      ) : (
+        <div className="row">
           {tickets.map((ticket) => (
-            <tr key={ticket.id}>
-              <td>{ticket.id}</td>
-              <td>{ticket.titulo}</td>
-              <td>{ticket.descripcion}</td>
-              <td>{ticket.estado}</td>
-              <td>
-                {ticket.estado !== 'resuelto' ? (
-                  <button onClick={() => marcarComoResuelto(ticket.id)}>
-                    Marcar como resuelto
-                  </button>
-                ) : (
-                  '✔️'
-                )}
-              </td>
-            </tr>
+            <div className="col-md-6 mb-3" key={ticket.id}>
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">{ticket.titulo}</h5>
+                  <p className="card-text">{ticket.descripcion}</p>
+                  <span className="badge bg-info text-dark">{ticket.estado}</span>
+                  <div className="mt-2">
+                    {ticket.estado !== 'resuelto' ? (
+                      <button
+                        className="btn btn-success btn-sm"
+                        onClick={() => marcarComoResuelto(ticket.id)}
+                      >
+                        Marcar como resuelto
+                      </button>
+                    ) : (
+                      <span className="text-success">✔️ Ticket resuelto</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+      )}
     </div>
   );
 };
