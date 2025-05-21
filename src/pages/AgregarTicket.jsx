@@ -15,7 +15,7 @@ const AgregarTicket = () => {
     }
 
     try {
-      await axios.post('http://localhost:3001/api/tickets', {
+await axios.post('https://backend-ticket-r1nc.onrender.com/api/tickets', {
         titulo,
         descripcion,
       });
