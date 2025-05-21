@@ -37,7 +37,7 @@ const VerTickets = () => {
       <h2>Lista de Tickets</h2>
       <div className="mt-3">
           <a href="/" className="btn btn-outline-dark">
-            Ver Tickets
+            Regresar a Agregar
           </a>
         </div>
       <button className="btn btn-outline-secondary mb-3" onClick={obtenerTickets}>🔄 Recargar</button>
