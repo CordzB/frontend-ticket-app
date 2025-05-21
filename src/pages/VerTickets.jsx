@@ -4,7 +4,6 @@ import axios from 'axios';
 const VerTickets = () => {
   const [tickets, setTickets] = useState([]);
   const [cargando, setCargando] = useState(false);
-
   const API_URL = 'https://backend-ticket-r1nc.onrender.com/api/tickets';
 
   const obtenerTickets = async () => {
