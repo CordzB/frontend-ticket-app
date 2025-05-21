@@ -5,7 +5,8 @@ const VerTickets = () => {
   const [tickets, setTickets] = useState([]);
   const [cargando, setCargando] = useState(false);
 
-  const API_URL = 'http://192.168.0.110:3001/api/tickets'; // ← usa tu IP si es necesario
+  // ✅ URL del backend en Render
+  const API_URL = 'https://backend-ticket-r1nc.onrender.com/api/tickets';
 
   const obtenerTickets = async () => {
     setCargando(true);
@@ -22,7 +23,7 @@ const VerTickets = () => {
   const marcarComoResuelto = async (id) => {
     try {
       await axios.put(`${API_URL}/${id}`, { estado: 'resuelto' });
-      obtenerTickets(); // recargar automáticamente
+      obtenerTickets(); // Recargar después de actualizar
     } catch (err) {
       console.error('Error al actualizar ticket:', err);
     }
