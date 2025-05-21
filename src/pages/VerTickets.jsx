@@ -5,7 +5,6 @@ const VerTickets = () => {
   const [tickets, setTickets] = useState([]);
   const [cargando, setCargando] = useState(false);
 
-  // ✅ URL del backend en Render
   const API_URL = 'https://backend-ticket-r1nc.onrender.com/api/tickets';
 
   const obtenerTickets = async () => {
@@ -23,7 +22,7 @@ const VerTickets = () => {
   const marcarComoResuelto = async (id) => {
     try {
       await axios.put(`${API_URL}/${id}`, { estado: 'resuelto' });
-      obtenerTickets(); // Recargar después de actualizar
+      obtenerTickets();
     } catch (err) {
       console.error('Error al actualizar ticket:', err);
     }
